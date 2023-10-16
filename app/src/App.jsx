@@ -22,12 +22,21 @@ function App() {
             id: new Date().getTime(),
             text: action.value,
             isDone: false,
+            isEdit: false,
           },
         ];
       }
       case "TODO_DELETE": {
         const filtered = todos.filter((t) => t.id != action.value);
         return [...filtered];
+      }
+      case "TODO_EDIT": {
+        const newTodos = [...todos];
+        const idx = newTodos.findIndex((nt) => nt.id === action.value);
+        if (idx !== -1) {
+          newTodos[idx]["isEdit"] = true;
+        }
+        return newTodos;
       }
       case "TODO_DONE": {
         const newTodos = [...todos];
@@ -63,12 +72,6 @@ function App() {
       type: "TODO_DELETE",
       value: id,
     });
-    function handleEdit(id) {
-      dispatch({
-        type: "TODO_DELETE",
-        value: id,
-      });
-    }
   }
   function handleEdit(id) {
     dispatch({

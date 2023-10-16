@@ -1,4 +1,5 @@
-const TodoList = ({ todos, handleDelete, handleDone }) => {
+import UpdateForm from "./UpdateForm";
+const TodoList = ({ todos, handleDelete, handleDone, handleEdit }) => {
   function handleCheck(e, id) {
     // console.log(e.target.checked);
     // console.log(id);
@@ -13,16 +14,22 @@ const TodoList = ({ todos, handleDelete, handleDone }) => {
       <h1>My todos</h1>
       {todos.map((t) => (
         <div key={t.id}>
-          <input
-            type="checkbox"
-            name=""
-            id=""
-            checked={t.isDone}
-            onChange={(e) => handleCheck(e, t.id)}
-          />
-          {t.text}
-          <button onClick={() => handleDelete(t.id)}>Delete</button>
-          <button onClick={() => handleEdit(t.id)}>Edit</button>
+          {t.isEdit ? (
+            <UpdateForm />
+          ) : (
+            <>
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                checked={t.isDone}
+                onChange={(e) => handleCheck(e, t.id)}
+              />
+              {t.text}
+              <button onClick={() => handleDelete(t.id)}>Delete</button>
+              <button onClick={() => handleEdit(t.id)}>Edit</button>
+            </>
+          )}
         </div>
       ))}
 
