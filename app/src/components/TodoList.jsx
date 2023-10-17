@@ -1,8 +1,12 @@
-import UpdateForm from "./UpdateForm";
-const TodoList = ({ todos, handleDelete, handleDone, handleEdit }) => {
+import EditForm from "./editForm";
+const TodoList = ({
+  todos,
+  handleDelete,
+  handleEdit,
+  handleDone,
+  handleUpdate,
+}) => {
   function handleCheck(e, id) {
-    // console.log(e.target.checked);
-    // console.log(id);
     let type = "done";
     if (!e.target.checked) {
       type = "undone";
@@ -12,34 +16,32 @@ const TodoList = ({ todos, handleDelete, handleDone, handleEdit }) => {
   return (
     <div>
       <h1>My todos</h1>
-      {todos.map((t) => (
-        <div key={t.id}>
-          {t.isEdit ? (
-            <UpdateForm />
-          ) : (
-            <>
-              <input
-                type="checkbox"
-                name=""
-                id=""
-                checked={t.isDone}
-                onChange={(e) => handleCheck(e, t.id)}
+      <div>
+        {todos.map((t) => (
+          <div key={t.id} className={t.isDone ? "strikethrough" : ""}>
+            {t.isEdit ? (
+              <EditForm
+                text={t.text} // Pass the text to be edited
+                onSave={(newText) => handleUpdate(t.id, newText)} // Pass a function to save the changes
               />
-              {t.text}
-              <button onClick={() => handleDelete(t.id)}>Delete</button>
-              <button onClick={() => handleEdit(t.id)}>Edit</button>
-            </>
-          )}
-        </div>
-      ))}
-
-      {/* {todos.map((t) => (
-        <div key={t.id}>
-          <input type="text" name="" id="" value={t.text} />
-
-          <button onClick={() => handleDelete(t.id)}>Update</button>
-        </div>
-      ))} */}
+            ) : (
+              // Display the item as it is
+              <>
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  checked={t.isDone}
+                  onChange={(e) => handleCheck(e, t.id)}
+                />
+                {t.text}
+                <button onClick={() => handleDelete(t.id)}>Delete</button>
+                <button onClick={() => handleEdit(t.id)}>Edit</button>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -14,14 +14,16 @@ const TodoAddForm = ({ handleAdd }) => {
       <label>
         <input
           type="text"
-          required
           onChange={(e) => {
             setText(e.target.value);
           }}
           value={text}
+          minLength="5"
+          maxLength="10"
+          required
         />
       </label>
-      <button>Add</button>
+      <button type="submit">Add</button>
     </form>
   );
 };
