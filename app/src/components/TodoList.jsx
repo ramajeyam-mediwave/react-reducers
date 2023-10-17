@@ -11,7 +11,7 @@ const TodoList = ({
 }) => {
   const [draggedTodo, setDraggedTodo] = useState(null);
 
-  const handleDragStart = (e, todo) => {
+  const handleDragStart = (todo) => {
     setDraggedTodo(todo);
   };
 
@@ -19,8 +19,7 @@ const TodoList = ({
     e.preventDefault();
   };
 
-  const handleDrop = (e, targetTodo) => {
-    e.preventDefault();
+  const handleDrop = (targetTodo) => {
     if (draggedTodo) {
       const updatedTodos = [...todos];
 
@@ -35,6 +34,7 @@ const TodoList = ({
       }
 
       handleReorder(updatedTodos);
+      console.log(updatedTodos);
       setDraggedTodo(null);
     }
   };
@@ -55,9 +55,9 @@ const TodoList = ({
             key={t.id}
             className={t.isDone ? "strikethrough" : ""}
             draggable
-            onDragStart={(e) => handleDragStart(e, t)}
+            onDragStart={(e) => handleDragStart(t)}
             onDragOver={(e) => handleDragOver(e)}
-            onDrop={(e) => handleDrop(e, t)}
+            onDrop={(e) => handleDrop(t)}
           >
             {t.isEdit ? (
               <EditForm

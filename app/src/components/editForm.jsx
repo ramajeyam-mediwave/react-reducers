@@ -9,12 +9,17 @@ const EditForm = ({ text, onSave }) => {
 
   return (
     <div>
-      <input
-        type="text"
-        value={editedText}
-        onChange={(e) => setEditedText(e.target.value)}
-      />
-      <button onClick={handleSave}>Save</button>
+      <form onSubmit={handleSave}>
+        <input
+          minLength="5"
+          maxLength="10"
+          required
+          type="text"
+          value={editedText}
+          onChange={(e) => setEditedText(e.target.value)}
+        />
+        <button>Save</button>
+      </form>
     </div>
   );
 };
