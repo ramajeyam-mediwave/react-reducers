@@ -7,7 +7,7 @@ const TodoList = ({
   handleEdit,
   handleDone,
   handleUpdate,
-  handleReorder, // Accept the handleReorder function as a prop
+  handleReorder,
 }) => {
   const [draggedTodo, setDraggedTodo] = useState(null);
 
@@ -34,14 +34,11 @@ const TodoList = ({
         updatedTodos.splice(targetIndex, 0, draggedTodo);
       }
 
-      // Update the state with the new order of todos using the handleReorder function
       handleReorder(updatedTodos);
       setDraggedTodo(null);
     }
   };
   function handleCheck(e, id) {
-    // console.log(e.target.checked);
-    // console.log(id);
     let type = "done";
     if (!e.target.checked) {
       type = "undone";

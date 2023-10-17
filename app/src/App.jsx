@@ -74,7 +74,7 @@ function App() {
         return newTodos;
       }
       case "TODO_REORDER": {
-        return action.value; // Set the state to the new order of todos
+        return action.value;
       }
       default: {
         throw Error("Unknown action: " + action.type);
@@ -115,14 +115,12 @@ function App() {
   }
 
   function handleUpdate(id, newText) {
-    // Update the todos state to reflect the changes
     dispatch({
       type: "TODO_UPDATE",
       value: { id, newText },
     });
   }
   function handleReorder(updatedTodos) {
-    // Dispatch the TODO_REORDER action to update the state
     dispatch({
       type: "TODO_REORDER",
       value: updatedTodos,
